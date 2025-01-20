@@ -125,7 +125,7 @@ const Quiz = () => {
           </button>
         </div>
       ) : (
-        <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl border-2 border-orange-100">
+        <div className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-2xl border-2 border-orange-300">
           <div className="mb-6">
             <div className="w-full bg-orange-100 rounded-full h-3">
               <div
