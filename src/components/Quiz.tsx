@@ -22,6 +22,7 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>(Array(questions.length).fill(-1));
 
   const handleAnswerClick = (answerIndex: number) => {
@@ -47,21 +48,35 @@ const Quiz = () => {
   };
 
   const handleRestartQuiz = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowScore(false);
-    setSelectedAnswers(Array(questions.length).fill(-1));
+    setCurrentQuestion(0); 
+    setScore(0); 
+    setShowScore(false); 
+    setSelectedAnswers(Array(questions.length).fill(-1)); 
   };
 
   const handleSubmitQuiz = () => {
     setShowScore(true);
   };
 
+  const handleStartQuiz = () => {
+    setQuizStarted(true);
+  };
+
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      {showScore ? (
+      {!quizStarted ? (
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-6">Welcome to the Quiz!</h1>
+          <button
+            onClick={handleStartQuiz}
+            className="bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 text-lg"
+          >
+            Start Quiz
+          </button>
+        </div>
+      ) : showScore ? (
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-4">Quiz Completed!</h2>
           <p className="text-xl">
