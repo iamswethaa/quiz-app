@@ -12,7 +12,7 @@ const questions = [
     correctAnswer: 'Mars',
   },
   {
-    question: 'Who wrote "To Kill a Mockingbird"?',
+    question: 'Who wrote "To Kill a Mockingbird"?', 
     options: ['Harper Lee', 'Mark Twain', 'J.K. Rowling', 'Ernest Hemingway'],
     correctAnswer: 'Harper Lee',
   },
@@ -99,8 +99,11 @@ const Quiz = () => {
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
+  // Calculate correct and incorrect answers for the pie chart
   const correctAnswers = score;
   const incorrectAnswers = questions.length - score;
+  const correctPercentage = (correctAnswers / questions.length) * 100;
+  const incorrectPercentage = (incorrectAnswers / questions.length) * 100;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4">
@@ -122,20 +125,28 @@ const Quiz = () => {
               You scored {score} out of {questions.length}!
             </p>
           </div>
+
+          {/* Pie Chart */}
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-full flex justify-between text-sm font-medium text-orange-700">
-              <span>Correct: {correctAnswers}</span>
-              <span>Incorrect: {incorrectAnswers}</span>
+            <div className="w-48 h-48 rounded-full relative"
+              style={{
+                background: `conic-gradient(
+                  green 0% ${correctPercentage}%,
+                  red ${correctPercentage}% 100%
+                )`,
+              }}
+            >
+              <div className="absolute inset-4 bg-white rounded-full"></div>
             </div>
-            <div className="w-full h-8 bg-orange-100 rounded-lg overflow-hidden flex">
-              <div
-                className="bg-green-500 h-full"
-                style={{ width: `${(correctAnswers / questions.length) * 100}%` }}
-              ></div>                              
-              <div
-                className="bg-red-500 h-full"
-                style={{ width: `${(incorrectAnswers / questions.length) * 100}%` }}   
-              ></div>
+            <div className="flex space-x-6 text-sm font-medium text-orange-700">
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                <span>Correct: {correctAnswers}</span>
+              </div>
+              <div className="flex items-center">
+                <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                <span>Incorrect: {incorrectAnswers}</span>
+              </div>
             </div>
           </div>
 
