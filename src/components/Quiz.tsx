@@ -99,11 +99,14 @@ const Quiz = () => {
 
   const progress = ((currentQuestion + 1) / questions.length) * 100;
 
+  const correctAnswers = score;
+  const incorrectAnswers = questions.length - score;
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4">
       {!quizStarted ? (
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-6 text-orange-600">Welcome to the Quiz!</h1>
+          <h1 className="text-4xl font-bold mb-6 text-orange-800">Welcome to the Quiz!</h1>
           <button
             onClick={handleStartQuiz}
             className="bg-orange-500 text-white py-3 px-8 rounded-lg hover:bg-orange-600 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
@@ -112,14 +115,33 @@ const Quiz = () => {
           </button>
         </div>
       ) : showScore ? (
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4 text-orange-600">Quiz Completed!</h2>
-          <p className="text-xl text-orange-700">
-            You scored {score} out of {questions.length}!
-          </p>
+        <div className="text-center w-full max-w-2xl">
+          <h2 className="text-3xl font-bold mb-6 text-orange-600">Quiz Completed!</h2>
+          <div className="mb-8">
+            <p className="text-xl text-orange-700">
+              You scored {score} out of {questions.length}!
+            </p>
+          </div>
+          <div className="flex flex-col items-center space-y-4">
+            <div className="w-full flex justify-between text-sm font-medium text-orange-700">
+              <span>Correct: {correctAnswers}</span>
+              <span>Incorrect: {incorrectAnswers}</span>
+            </div>
+            <div className="w-full h-8 bg-orange-100 rounded-lg overflow-hidden flex">
+              <div
+                className="bg-green-500 h-full"
+                style={{ width: `${(correctAnswers / questions.length) * 100}%` }}
+              ></div>                              
+              <div
+                className="bg-red-500 h-full"
+                style={{ width: `${(incorrectAnswers / questions.length) * 100}%` }}   
+              ></div>
+            </div>
+          </div>
+
           <button
             onClick={handleRestartQuiz}
-            className="mt-6 bg-orange-500 text-white py-2 px-6 rounded-lg hover:bg-orange-600 font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+            className="mt-8 bg-orange-500 text-white py-2 px-6 rounded-lg hover:bg-orange-600 font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
             Restart Quiz
           </button>
